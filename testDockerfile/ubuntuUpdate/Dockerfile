@@ -1,6 +1,6 @@
-FROM ubuntu:latest
+FROM centos:7
 MAINTAINER Hermann90
-RUN apt-get update \ 
-&& apt-get install -y vim git \ 
-&& apt-get clean \ 
+RUN yum update \ 
+&& yum install -y vim git \ 
+&& yum clean \ 
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
