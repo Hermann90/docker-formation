@@ -191,7 +191,7 @@ __Example of dockerfile__
 1. create a __testDockerFile__ folder, enter in this folder, then create a file using vim named __Dockerfile__ with the content bellow
 ```sh
 FROM ubuntu:latest
-MAINTAINER xavier
+MAINTAINER Hermann90
 RUN apt-get update \ 
 && apt-get install -y vim git \ 
 && apt-get clean \ 
@@ -201,6 +201,7 @@ RUN apt-get update \
 __command to build image__
 2. create the docker image, using the command bellow
 ```
-docker build -t nomimage:version .
+docker build -t myimage:v1 .
+docker images 
 ```
 
