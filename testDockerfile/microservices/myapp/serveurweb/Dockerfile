@@ -1,5 +1,5 @@
-FROM centos:7
-RUN yum update -y
-RUN yum install -y nginx
+FROM ubuntu:20.04
+RUN apt-get update -y
+RUN apt-get install -y nginx
 VOLUME /var/www/html/
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
