@@ -114,3 +114,8 @@ fwrite($Handle, $Data2);
 fclose($Handle);
 ```
 
+## execution and testing of our services
+
+### Process : 
+1. 
+![](../../media/tree.PNG)
