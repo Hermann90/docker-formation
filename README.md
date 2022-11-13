@@ -44,7 +44,7 @@ docker inspect web
 docker stop web
 ```
 
-##### Docker 3 : Persistant Volume : 
+##### Docker 3.1 : Persistant Volume (using -v option) 
 1. start the web container created with nginx : 
 2. connect to this container using exec docker command :
 - update this container
@@ -96,4 +96,110 @@ docker run -dit -p 8080:80 --name web -v /srv/data/nginx:/usr/share/nginx/html/ 
 sudo vim /srv/data/nginx/index.html #copy and paste the html code above in this file
 docker rm -f web
 docker run -dit -p 8080:80 --name web -v /srv/data/nginx/:/usr/share/nginx/html nginx
+```
+
+##### Docker 3.2 : Persistant Volume (using docker volume command) 
+###### docker volume command
+
+Docker volume commande have 5 options for utilization :
+
+| Command | Description |
+| ------- | ----------- |
+| docker volume create volumeName | Create a volume |
+| docker volume inspect | Display detailed information on one or more volumes |
+| docker volume ls | List volumes |
+| docker volume prune | Remove all unused local volumes |
+| docker volume rm | Remove one or more volumes |
+
+###### create the volume, using the docker volume commande then use it for our nginx server :
+- delete your web container
+- create the volume (myFirstVolume)
+- list all volume
+- List the volume then display only the volume you have created. use the grep command
+- create the nginx container, then mount this volume using the --mount option
+- inspect the volume, then copy the local directory of this volume
+- Edit the index.html in this local volume directory then put your name or some html code 
+- refresh the browser
+- delete the container
+- create again the web conatiner, with the same volume, then refresh your browser
+- delete the container, then delete the volume
+
+```sh
+docker ps
+docker rm -f web
+docker volume create myFirstVolume
+docker volume ls
+docker volume ls | myFirstVolume
+docker run -tid --name web -p 8080:80 --mount source=myFirstVolume,target=/usr/share/nginx/html/ nginx:latest
+docker ps
+docker volume inspect myFirstVolume
+sudo vim /var/lib/docker/volumes/myFirstVolume/_data/index.html
+docker rm -f web
+docker run -dit --name web -p 8080:80 --mount source=myFirstVolume,target=/usr/share/nginx/html/ nginx:latest
+docker rm -f web
+docker volume rm myFirstVolume
+```
+
+##### Docker 5 : Environment Variable (ENV, ENVFILE) 
+1. create a ubuntu container with the environment variable MYENV that the value is 12345
+2. connect you to this container then display this environment variable
+
+```sh
+docker run -tid --name testEnv --env MYENV="12345" ubuntu:latest
+docker exec -ti testEnv sh
+env
+echo $MYENV
+exit
+```
+###### Note: the problem with this method is that it is not secure because anyone can see the value of the environment variable.
+3. delete the testEnv container
+4. create a file named db_access.txt, then put DB_PASSWORD="my_p@ssword" and DB_USER_NAME="root". save the file and quit
+5. create again the container, call this file using __--env-file__ option to load these environment variable
+6. connect you to this container, then display all environment variable
+
+```sh
+docker rm -f testEnv
+sudo vim db_access.txt # put these values in the file DB_PASSWORD="my_p@ssword" and DB_USER_NAME="root" then save and quit
+docker run -tid --name testEnv --env-file db-access.txt ubuntu:latest
+docker exec -ti testEnv sh
+env
+echo $DB_PASSWORD
+echo $DB_USER_NAME
+exit
+```
+
+##### Docker 6 : Dockerfile
+__what is the dockerfile ?__
+- a configuration file
+- objective : creation of a docker image
+- instruction sequences : 
+1. __RUN :__ launch command (apt, yum, ...)
+2. __ENV :__ environment variable
+3. __EXPOSE :__ exposure of ports
+4. __VOLUME :__ definition of volumes
+5. __ENTRYPOINT :__ master process
+
+__Interests of dockerfile__
+* restart an image creation at any time
+* better visibility on what is done
+* easy sharing and possibility to save in Git
+* docker file editing script (variables...)
+* no need to ask questions during the docker run of the container
+* creation of prod // dev - CI // CD images
+
+__Example of dockerfile__
+1. create a __testDockerFile__ folder, enter in this folder, then create a file using vim named __Dockerfile__ with the content bellow
+```sh
+FROM ubuntu:latest
+MAINTAINER xavier
+RUN apt-get update \ 
+&& apt-get install -y vim git \ 
+&& apt-get clean \ 
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+```
+
+__command to build image__
+2. create the docker image, using the command bellow
+```
+docker build -t nomimage:version .
 ```
