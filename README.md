@@ -188,14 +188,15 @@ __Interests of dockerfile__
 * creation of prod // dev - CI // CD images
 
 __Example of dockerfile__
-1. create a __testDockerFile__ folder, enter in this folder, then create a file using vim named __Dockerfile__ with the content bellow
+1. create a __testDockerFile__ folder, enter in this folder, then create a file using vim named __Dockerfile__ with the content bellow.
+__Note :__ you can find this file in the directory __docker-formation/testDockerfile/ubuntuUpdat__ or click on this link : [Dockerfile](./testDockerfile/ubuntuUpdate/Dockerfile). 
 ```sh
-FROM ubuntu:latest
+FROM centos:7
 MAINTAINER Hermann90
-RUN apt-get update \ 
-&& apt-get install -y vim git \ 
-&& apt-get clean \ 
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+RUN yum update -y
+RUN yum install -y vim 
+RUN yum install -y git 
+RUN rm -rf /tmp/* /var/tmp/*
 ```
 
 __command to build image__
@@ -204,4 +205,29 @@ __command to build image__
 docker build -t myimage:v1 .
 docker images 
 ```
+3. See the execution sequence of the Dockerfile
+```sh
+docker history myimage:v1
+```
+4. launch a container with this image, connect to it, then check that git and vim are installed
+```sh
+docker run -dit --name testdockerfile myimage:v1
+docker exec -ti testdockerfile sh
+git
+vim
+exit
+```
+5. delete the container, then create the image (__docker rmi command__)
+```sh
+docker ps
+docker rm -f testdockerfile
+docker images
+docker rmi -f myimage:v1
+```
 
+#### Docker 7 : Layers
+
+[Layers](./testDockerfile/layers/layer.md)
+
+
+### Docker 8 : Microservices principles and demo
