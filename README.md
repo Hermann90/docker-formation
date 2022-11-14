@@ -199,6 +199,15 @@ RUN yum install -y git
 RUN rm -rf /tmp/* /var/tmp/*
 ```
 
+__Node :__ 
+With the box generator with vagrant, it is likely that you have the time that is not correct. Use this command to synchronize the time between your vagrant server and your local machine. This may cause the generation of docker images from the dockerfile to fail.
+
+```sh
+date
+sudo date -s "2022-11-13 23:15:00"
+date
+```
+
 __command to build image__
 2. create the docker image, using the command bellow
 ```
