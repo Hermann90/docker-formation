@@ -1,25 +1,25 @@
 # Docker formation By Hermann90
-## _Le processus de formation a la techno Docker_
+## _The Docker and docker-compose training by practice_
 
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Dans ce depot, nous allons decrire les etapes pour apprendre les bases de la tecchno Docker.
+In this post, we will describe the steps to learn the basics of Docker technology.
 - ✨Magic ✨
 
-## Environement de test : Vagrant, virtualBox
+## Test Environment : Vagrant, virtualBox
 ### prerequis : 
 - Install VirtualBox
 - Install Vagrant
 - Visual Studio Code
-##### Installation de Docker dans un serveur virtuel centos 7:
-- cloner ce depot, puis suivez les etapes ci-dessous : 
+##### Installation of Docker in a centos virtual server 7:
+- clone this repository, then follow the steps below: 
 ```sh
 cd centos_os/
 vagrant up
 ```
-- Connectez vous par ssh au serveur qui est demarrer.
+- Connect via ssh to the server that is started.
 
 ##### Docker 1 : Some basic docker command
 ## _docker ps : see the started containers_
