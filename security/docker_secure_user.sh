@@ -17,7 +17,7 @@ echo "dockremap:500000:65536" >>/etc/subgid
 
 echo "
   {
-   \"userns-remap\": \"default\"
+   \"dockremap\": \"default\"
   }
 " > /etc/docker/daemon.json
 
