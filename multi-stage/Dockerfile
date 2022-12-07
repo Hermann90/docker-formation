@@ -4,7 +4,7 @@ RUN git clone https://github.com/Hermann90/war-hello.git
 
 FROM maven:3.5-jdk-8-alpine as build
 WORKDIR /app
-COPY --from=clone /app/war-hello-maven /app
+COPY --from=clone /app/war-hello /app
 RUN mvn package
 
 FROM tomcat
