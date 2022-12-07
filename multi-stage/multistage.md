@@ -57,7 +57,7 @@ RUN git clone https://github.com/Hermann90/war-hello.git
 
 FROM maven:3.5-jdk-8-alpine as build
 WORKDIR /app
-COPY --from=clone /app/war-hello-maven /app
+COPY --from=clone /app/war-hello /app
 RUN mvn package
 
 FROM tomcat
@@ -68,4 +68,7 @@ EXPOSE 8080
 * Generate the docker image of this application from the Dockerfile : 
     - The Dockerfile is present in the mult-stage directory. 
     - Enter this directory, then enter the command to generate a docker image. 
-    
+```sh
+cd 
+docker build -t wartest .
+```
