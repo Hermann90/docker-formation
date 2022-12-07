@@ -72,3 +72,15 @@ EXPOSE 8080
 cd 
 docker build -t wartest .
 ```
+
+* Launch a container of this application from its image and check that the application is deployed on port 8080. 
+```sh
+docker run -d --name web --p 8080:8080 wartest
+docker ps
+```
+
+##### open your browser on port 8080 and check if the application is running.
+
+in my case type : __192.168.56.11:8080__ in the browser
+
+![](../media/dockerfilemulti.PNG)
